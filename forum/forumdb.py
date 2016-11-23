@@ -3,7 +3,6 @@
 # 
 
 import psycopg2
-import time
 
 ## Database connection
 DB = psycopg2.connect("dbname='forum'")
@@ -31,5 +30,5 @@ def AddPost(content):
     Args:
       content: The text content of the new post.
     '''
-    t = time.strftime('%c', time.localtime())
-    DB.append((t, content))
+    cursor = DB.cursor()
+    cursor.execute('INSERT INTO posts (content) VALUES ({})'.format(content))
