@@ -3,12 +3,11 @@
 #
 
 # The forumdb module is where the database interface code goes.
-import forumdb
-
-# Other modules used to run a web server.
 import cgi
-from wsgiref.simple_server import make_server
 from wsgiref import util
+from wsgiref.simple_server import make_server
+
+import forumdb
 
 # HTML template for the forum page
 HTML_WRAP = '''\
@@ -43,6 +42,7 @@ POST = '''\
     <div class=post><em class=date>%(time)s</em><br>%(content)s</div>
 '''
 
+
 ## Request handler for main page
 def View(env, resp):
     '''View is the 'main page' of the forum.
@@ -55,6 +55,7 @@ def View(env, resp):
     headers = [('Content-type', 'text/html')]
     resp('200 OK', headers)
     return [HTML_WRAP % ''.join(POST % p for p in posts)]
+
 
 ## Request handler for posting - inserts to database
 def Post(env, resp):
@@ -79,13 +80,15 @@ def Post(env, resp):
     # 302 redirect back to the main page
     headers = [('Location', '/'),
                ('Content-type', 'text/plain')]
-    resp('302 REDIRECT', headers) 
+    resp('302 REDIRECT', headers)
     return ['Redirecting']
+
 
 ## Dispatch table - maps URL prefixes to request handlers
 DISPATCH = {'': View,
             'post': Post,
-	    }
+            }
+
 
 ## Dispatcher forwards requests according to the DISPATCH table.
 def Dispatcher(env, resp):
@@ -96,7 +99,7 @@ def Dispatcher(env, resp):
     else:
         status = '404 Not Found'
         headers = [('Content-type', 'text/plain')]
-        resp(status, headers)    
+        resp(status, headers)
         return ['Not Found: ' + page]
 
 
@@ -104,4 +107,3 @@ def Dispatcher(env, resp):
 httpd = make_server('', 8000, Dispatcher)
 print "Serving HTTP on port 8000..."
 httpd.serve_forever()
-
