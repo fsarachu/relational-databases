@@ -9,7 +9,7 @@ DB = psycopg2.connect("dbname='forum'")
 
 
 ## Get posts from database.
-def GetAllPosts():
+def get_all_posts():
     """Get all the posts from the database, sorted with the newest first.
 
     Returns:
@@ -24,7 +24,7 @@ def GetAllPosts():
 
 
 ## Add a post to the database.
-def AddPost(content):
+def add_post(content):
     """Add a new post to the database.
 
     Args:

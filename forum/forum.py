@@ -50,7 +50,7 @@ def View(env, resp):
     It displays the submission form and the previously posted messages.
     '''
     # get posts from database
-    posts = forumdb.GetAllPosts()
+    posts = forumdb.get_all_posts()
     # send results
     headers = [('Content-type', 'text/html')]
     resp('200 OK', headers)
@@ -76,7 +76,7 @@ def Post(env, resp):
         content = content.strip()
         if content:
             # Save it in the database
-            forumdb.AddPost(content)
+            forumdb.add_post(content)
     # 302 redirect back to the main page
     headers = [('Location', '/'),
                ('Content-type', 'text/plain')]
