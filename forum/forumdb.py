@@ -4,11 +4,11 @@
 
 import psycopg2
 
-## Database connection
+# Database connection
 DB = psycopg2.connect("dbname='forum'")
 
 
-## Get posts from database.
+# Get posts from database.
 def get_all_posts():
     """Get all the posts from the database, sorted with the newest first.
 
@@ -23,7 +23,7 @@ def get_all_posts():
     return posts
 
 
-## Add a post to the database.
+# Add a post to the database.
 def add_post(content):
     """Add a new post to the database.
 
