@@ -31,4 +31,4 @@ def add_post(content):
       content: The text content of the new post.
     """
     cursor = DB.cursor()
-    cursor.execute('INSERT INTO posts (content) VALUES ({})'.format(content))
+    cursor.execute("""INSERT INTO posts (content) VALUES ('{}')""".format(content))
