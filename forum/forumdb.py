@@ -2,10 +2,11 @@
 # Database access functions for the web forum.
 # 
 
+import psycopg2
 import time
 
 ## Database connection
-DB = []
+DB = psycopg2.connect("dbname='forum'")
 
 
 ## Get posts from database.
@@ -17,8 +18,9 @@ def GetAllPosts():
       pointing to the post content, and 'time' key pointing to the time
       it was posted.
     '''
-    posts = [{'content': str(row[1]), 'time': str(row[0])} for row in DB]
-    posts.sort(key=lambda row: row['time'], reverse=True)
+    cursor = DB.cursor()
+    cursor.execute("""SELECT content, time FROM posts ORDER BY time DESC""")
+    posts = [{'content': str(row[0]), 'time': str(row[1])} for row in cursor.fetchall()]
     return posts
 
 
