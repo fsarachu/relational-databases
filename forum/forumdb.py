@@ -32,3 +32,4 @@ def add_post(content):
     """
     cursor = DB.cursor()
     cursor.execute("""INSERT INTO posts (content) VALUES ('{}')""".format(content))
+    DB.commit()
