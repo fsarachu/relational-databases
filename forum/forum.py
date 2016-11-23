@@ -43,12 +43,12 @@ HTML_WRAP = '''\
 POST = '<div class=post><em class=date>{}</em><br>{}</div>'
 
 
-## Request handler for main page
+# Request handler for main page
 def View(env, resp):
-    '''View is the 'main page' of the forum.
+    """View is the 'main page' of the forum.
 
     It displays the submission form and the previously posted messages.
-    '''
+    """
     # get posts from database
     posts = forumdb.get_all_posts()
     # send results
@@ -58,13 +58,13 @@ def View(env, resp):
         POST.format(bleach.clean(p['time'], tags=[]), bleach.clean(p['content'], tags=[])) for p in posts)]
 
 
-## Request handler for posting - inserts to database
+# Request handler for posting - inserts to database
 def Post(env, resp):
-    '''Post handles a submission of the forum's form.
-  
+    """Post handles a submission of the forum's form.
+
     The message the user posted is saved in the database, then it sends a 302
     Redirect back to the main page so the user can see their new post.
-    '''
+    """
     # Get post content
     input = env['wsgi.input']
     length = int(env.get('CONTENT_LENGTH', 0))
@@ -85,15 +85,15 @@ def Post(env, resp):
     return ['Redirecting']
 
 
-## Dispatch table - maps URL prefixes to request handlers
+# Dispatch table - maps URL prefixes to request handlers
 DISPATCH = {'': View,
             'post': Post,
             }
 
 
-## Dispatcher forwards requests according to the DISPATCH table.
+# Dispatcher forwards requests according to the DISPATCH table.
 def Dispatcher(env, resp):
-    '''Send requests to handlers based on the first path component.'''
+    """Send requests to handlers based on the first path component."""
     page = util.shift_path_info(env)
     if page in DISPATCH:
         return DISPATCH[page](env, resp)
