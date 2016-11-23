@@ -7,6 +7,8 @@ import cgi
 from wsgiref import util
 from wsgiref.simple_server import make_server
 
+import bleach
+
 import forumdb
 
 # HTML template for the forum page
@@ -38,9 +40,7 @@ HTML_WRAP = '''\
 '''
 
 # HTML template for an individual comment
-POST = '''\
-    <div class=post><em class=date>%(time)s</em><br>%(content)s</div>
-'''
+POST = '<div class=post><em class=date>{}</em><br>{}</div>'
 
 
 ## Request handler for main page
@@ -54,7 +54,8 @@ def View(env, resp):
     # send results
     headers = [('Content-type', 'text/html')]
     resp('200 OK', headers)
-    return [HTML_WRAP % ''.join(POST % p for p in posts)]
+    return [HTML_WRAP % ''.join(
+        POST.format(bleach.clean(p['time'], tags=[]), bleach.clean(p['content'], tags=[])) for p in posts)]
 
 
 ## Request handler for posting - inserts to database
