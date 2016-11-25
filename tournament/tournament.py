@@ -95,20 +95,3 @@ def swissPairings():
         id2: the second player's unique id
         name2: the second player's name
     """
-
-
-if __name__ == '__main__':
-    conn = connect()
-    c = conn.cursor()
-
-    deletePlayers()
-    registerPlayer('andreita')
-    registerPlayer('franquito')
-    registerPlayer('lala')
-
-    c.execute('SELECT id, name FROM players ORDER BY id')
-    rows = c.fetchall()
-    for row in rows:
-        print 'id: {}, name: {}'.format(row[0], row[1])
-
-    conn.close()
