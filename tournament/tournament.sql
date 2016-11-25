@@ -13,3 +13,14 @@ CREATE TABLE players (
   name VARCHAR(255),
   PRIMARY KEY (id)
 );
+
+
+DROP TABLE IF EXISTS matches;
+
+CREATE TABLE matches (
+  id       SERIAL,
+  player_1 INT REFERENCES players (id),
+  player_2 INT REFERENCES players (id),
+  winner   INT REFERENCES players (id),
+  PRIMARY KEY (id)
+);
