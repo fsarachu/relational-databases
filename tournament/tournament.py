@@ -17,6 +17,7 @@ def deleteMatches():
     c = conn.cursor()
     c.execute('DELETE FROM matches')
     conn.commit()
+    conn.close()
 
 
 def deletePlayers():
@@ -25,6 +26,7 @@ def deletePlayers():
     c = conn.cursor()
     c.execute('DELETE FROM players')
     conn.commit()
+    conn.close()
 
 
 def countPlayers():
@@ -33,7 +35,9 @@ def countPlayers():
     c = conn.cursor()
     c.execute('SELECT COUNT(*) FROM players')
     row = c.fetch()
-    return int(row[0])
+    count = int(row[0])
+    conn.close()
+    return count
 
 
 def registerPlayer(name):
@@ -49,6 +53,7 @@ def registerPlayer(name):
     c = conn.cursor()
     c.execute('INSERT INTO players (name) VALUES (%s)', (name,))
     conn.commit()
+    conn.close()
 
 
 def playerStandings():
@@ -96,6 +101,7 @@ if __name__ == '__main__':
     conn = connect()
     c = conn.cursor()
 
+    deletePlayers()
     registerPlayer('andreita')
     registerPlayer('franquito')
     registerPlayer('lala')
@@ -104,3 +110,5 @@ if __name__ == '__main__':
     rows = c.fetchall()
     for row in rows:
         print 'id: {}, name: {}'.format(row[0], row[1])
+
+    conn.close()
