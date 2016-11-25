@@ -47,7 +47,8 @@ def registerPlayer(name):
     """
     db = connect()
     c = db.cursor()
-    c.execute('INSERT INTO players (name) VALUES (%s)', name)
+    c.execute('INSERT INTO players (name) VALUES (%s)', (name,))
+    db.commit()
 
 
 def playerStandings():
@@ -92,4 +93,14 @@ def swissPairings():
 
 
 if __name__ == '__main__':
-    pass
+    db = connect()
+    c = db.cursor()
+
+    registerPlayer('andreita')
+    registerPlayer('franquito')
+    registerPlayer('lala')
+
+    c.execute('SELECT id, name FROM players ORDER BY id')
+    rows = c.fetchall()
+    for row in rows:
+        print 'id: {}, name: {}'.format(row[0], row[1])
