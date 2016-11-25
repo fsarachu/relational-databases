@@ -34,7 +34,7 @@ def countPlayers():
     conn = connect()
     c = conn.cursor()
     c.execute('SELECT COUNT(*) FROM players')
-    row = c.fetch()
+    row = c.fetchone()
     count = int(row[0])
     conn.close()
     return count
