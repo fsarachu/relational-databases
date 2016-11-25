@@ -86,3 +86,6 @@ def swissPairings():
         id2: the second player's unique id
         name2: the second player's name
     """
+
+if __name__ == '__main__':
+    pass
