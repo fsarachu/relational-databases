@@ -6,7 +6,7 @@
 -- You can write comments in this file by starting them with two dashes, like
 -- these lines here.
 
-DROP TABLE IF EXISTS players;
+DROP TABLE IF EXISTS players CASCADE;
 
 CREATE TABLE players (
   id   SERIAL,
@@ -15,7 +15,7 @@ CREATE TABLE players (
 );
 
 
-DROP TABLE IF EXISTS matches;
+DROP TABLE IF EXISTS matches CASCADE;
 
 CREATE TABLE matches (
   id       SERIAL,
