@@ -53,3 +53,17 @@ CREATE VIEW player_matches AS
     LEFT JOIN matches
       ON players.id = matches.winner OR players.id = matches.loser
   GROUP BY players.id;
+
+
+DROP VIEW IF EXISTS player_standings;
+
+CREATE VIEW player_standings AS
+  SELECT
+    w.id      AS "id",
+    w.name    AS "name",
+    w.wins    AS "wins",
+    m.matches AS "matches"
+  FROM player_wins AS w
+    JOIN player_matches AS m
+      ON w.id = m.id
+  ORDER BY wins DESC;
