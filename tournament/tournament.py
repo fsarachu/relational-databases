@@ -72,13 +72,10 @@ def playerStandings():
 
     conn = connect()
     c = conn.cursor()
-
-    c.execute('SELECT COUNT(*) FROM players')
-
-    row = c.fetchone()
-    count = int(row[0])
+    c.execute('SELECT * FROM player_standings')
+    result = c.fetchall()
     conn.close()
-    return count
+    return result
 
 
 def reportMatch(winner, loser):
