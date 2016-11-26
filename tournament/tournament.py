@@ -4,6 +4,7 @@
 #
 
 import psycopg2
+from collections import deque
 
 
 def connect():
@@ -57,6 +58,7 @@ def registerPlayer(name):
 
 
 def playerStandings():
+    # type: () -> list
     """Returns a list of the players and their win records, sorted by wins.
 
     The first entry in the list should be the player in first place, or a player
@@ -107,3 +109,18 @@ def swissPairings():
         id2: the second player's unique id
         name2: the second player's name
     """
+    pairings = []
+    standings = deque(playerStandings())
+
+    while standings:
+        p1 = standings.popleft()
+        p2 = standings.popleft()
+
+        if not (p1 or p2):
+            raise ValueError("Odd number of players!")
+
+        pair = (p1[0], p1[1], p2[0], p2[1])
+
+        pairings.append(pair)
+
+    return pairings
