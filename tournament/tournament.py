@@ -8,6 +8,7 @@ from collections import deque
 
 
 def connect():
+    # type: () -> psycopg2.connect()
     """Connect to the PostgreSQL database.  Returns a database connection."""
     return psycopg2.connect("dbname=tournament")
 
@@ -31,6 +32,7 @@ def deletePlayers():
 
 
 def countPlayers():
+    # type: () -> int
     """Returns the number of players currently registered."""
     conn = connect()
     c = conn.cursor()
@@ -95,6 +97,7 @@ def reportMatch(winner, loser):
 
 
 def swissPairings():
+    # type: () -> list
     """Returns a list of pairs of players for the next round of a match.
   
     Assuming that there are an even number of players registered, each player
