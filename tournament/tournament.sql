@@ -29,9 +29,9 @@ CREATE TABLE matches (
   PRIMARY KEY (id)
 );
 
-DROP VIEW IF EXISTS player_win_count;
+DROP VIEW IF EXISTS player_wins;
 
-CREATE VIEW player_win_count AS
+CREATE VIEW player_wins AS
   SELECT
     players.id            AS "id",
     players.name          AS "name",
@@ -42,9 +42,9 @@ CREATE VIEW player_win_count AS
   GROUP BY players.id;
 
 
-DROP VIEW IF EXISTS player_match_count;
+DROP VIEW IF EXISTS player_matches;
 
-CREATE VIEW player_match_count AS
+CREATE VIEW player_matches AS
   SELECT
     players.id        AS "id",
     players.name      AS "name",
