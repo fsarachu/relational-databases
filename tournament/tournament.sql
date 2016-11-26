@@ -23,8 +23,20 @@ CREATE TABLE players (
 DROP TABLE IF EXISTS matches CASCADE;
 
 CREATE TABLE matches (
-  id       SERIAL,
+  id     SERIAL,
   winner INT REFERENCES players (id),
-  loser   INT REFERENCES players (id),
+  loser  INT REFERENCES players (id),
   PRIMARY KEY (id)
 );
+
+DROP VIEW IF EXISTS player_win_count;
+
+CREATE VIEW player_win_count AS
+  SELECT
+    players.id            AS "id",
+    players.name          AS "name",
+    COUNT(matches.winner) AS "wins"
+  FROM players
+    LEFT JOIN matches
+      ON players.id = matches.winner
+  GROUP BY players.id;
