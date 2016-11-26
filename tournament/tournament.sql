@@ -40,3 +40,16 @@ CREATE VIEW player_win_count AS
     LEFT JOIN matches
       ON players.id = matches.winner
   GROUP BY players.id;
+
+
+DROP VIEW IF EXISTS player_match_count;
+
+CREATE VIEW player_match_count AS
+  SELECT
+    players.id        AS "id",
+    players.name      AS "name",
+    COUNT(matches.id) AS "matches"
+  FROM players
+    LEFT JOIN matches
+      ON players.id = matches.winner OR players.id = matches.loser
+  GROUP BY players.id;
